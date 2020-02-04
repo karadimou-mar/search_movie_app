@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object MovieAPIClient {
 
-    private const val BASE_URL = "http://www.omdbapi.com/"
+    private const val BASE_URL = "http://www.omdbapi.com"
 
     private val api: MovieAPI = Retrofit.Builder()
         .baseUrl(BASE_URL)

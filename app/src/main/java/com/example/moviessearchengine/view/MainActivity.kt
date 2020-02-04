@@ -17,6 +17,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
+    val heroes = ArrayList<Movie>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,20 +27,20 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val heroes = ArrayList<Movie>()
 
-        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
-        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
-        heroes.add(Movie("Wolverine", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
-        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
-        heroes.add(Movie("PPPPPPPPP", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
-        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
-        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
-        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
+
+//        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
+//        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
+//        heroes.add(Movie("Wolverine", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
+//        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
+//        heroes.add(Movie("PPPPPPPPP", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
+//        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
+//        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
+//        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
 
         val adapter = MovieAdapter(heroes)
 
-        recyclerView.adapter = adapter
+        recyclerView_movies.adapter = adapter
 
         recyclerView.addItemDecoration(
             ListDecorationPadding(this, 0, 0)
@@ -62,6 +64,10 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                 val resp: Movie? = response.body()
                 Log.d("response", "" + response)
+                Log.d("fuckoff", "" + response.body())
+                //heroes.add(1,resp!!)
+
+                recyclerView_movies.adapter?.notifyDataSetChanged()
 
             }
 

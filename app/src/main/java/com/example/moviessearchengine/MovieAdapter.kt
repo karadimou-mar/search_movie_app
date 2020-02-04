@@ -13,7 +13,7 @@ class MovieAdapter (private val movie: ArrayList<Movie>): RecyclerView.Adapter<M
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvTitle.text = movie[position].title
-        holder.tvYyear.text = movie[position].year
+        holder.tvYear.text = movie[position].year
         holder.itemView.setBackgroundColor(Color.WHITE)
     }
 
@@ -27,6 +27,6 @@ class MovieAdapter (private val movie: ArrayList<Movie>): RecyclerView.Adapter<M
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val tvTitle: TextView = view.textView_title
-        val tvYyear:TextView = view.textView_year
+        val tvYear:TextView = view.textView_year
     }
 }
