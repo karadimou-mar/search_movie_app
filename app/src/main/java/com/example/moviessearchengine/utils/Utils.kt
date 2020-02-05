@@ -26,3 +26,12 @@ fun ImageView.loadImage(url: String?){
         .into(this)
 
 }
+
+fun ImageView.loadPoster(url: String?){
+    Glide.with(context)
+        .load(url)
+        .apply(RequestOptions().override(400,600))
+        .into(this)
+    //TODO: size
+
+}
