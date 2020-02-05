@@ -4,9 +4,11 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviessearchengine.model.Movie
+import com.example.moviessearchengine.utils.loadImage
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter (private val movie: ArrayList<Movie>): RecyclerView.Adapter<MovieAdapter.ViewHolder>(){
@@ -14,6 +16,7 @@ class MovieAdapter (private val movie: ArrayList<Movie>): RecyclerView.Adapter<M
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvTitle.text = movie[position].title
         holder.tvYear.text = movie[position].year
+        holder.ivPoster.loadImage(movie[position].poster)
         holder.itemView.setBackgroundColor(Color.WHITE)
     }
 
@@ -28,5 +31,6 @@ class MovieAdapter (private val movie: ArrayList<Movie>): RecyclerView.Adapter<M
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val tvTitle: TextView = view.textView_title
         val tvYear:TextView = view.textView_year
+        val ivPoster: ImageView = view.imageView_thumbnail
     }
 }

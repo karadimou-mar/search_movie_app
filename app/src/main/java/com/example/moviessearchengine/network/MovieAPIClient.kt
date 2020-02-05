@@ -2,6 +2,7 @@ package com.example.moviessearchengine.network
 
 import com.example.moviessearchengine.BuildConfig
 import com.example.moviessearchengine.model.Movie
+import com.example.moviessearchengine.model.SearchResponse
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -18,7 +19,7 @@ object MovieAPIClient {
         .build()
         .create(MovieAPI::class.java)
 
-    fun getMovies(title: String): Call<Movie>{
+    fun getMovies(title: String): Call<SearchResponse>{
         return api.getMovies(title, BuildConfig.API_KEY)
     }
 }

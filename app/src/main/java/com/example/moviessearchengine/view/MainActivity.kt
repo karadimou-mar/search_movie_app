@@ -8,37 +8,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviessearchengine.MovieAdapter
 import com.example.moviessearchengine.R
 import com.example.moviessearchengine.model.Movie
+import com.example.moviessearchengine.model.SearchResponse
 import com.example.moviessearchengine.network.MovieAPIClient
 import com.example.moviessearchengine.utils.ListDecorationPadding
+import com.example.moviessearchengine.utils.hideKeyboard
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_movie.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    val heroes = ArrayList<Movie>()
+    val movies = ArrayList<Movie>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        hideKeyboard()
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView_movies)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
 
-
-//        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
-//        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
-//        heroes.add(Movie("Wolverine", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
-//        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
-//        heroes.add(Movie("PPPPPPPPP", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
-//        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
-//        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
-//        heroes.add(Movie("Spiderman", "https://cdn3.whatculture.com/images/2019/07/c425c3a37288d808-600x338.jpg"))
-
-        val adapter = MovieAdapter(heroes)
+        val adapter = MovieAdapter(movies)
 
         recyclerView_movies.adapter = adapter
 
@@ -48,24 +43,28 @@ class MainActivity : AppCompatActivity() {
         )
 
         button_search.setOnClickListener {
+            movies.clear()
+            hideKeyboard()
             getMovies(editText_search.text.toString())
         }
 
     }
 
     private fun getMovies(title: String) {
-        val call: Call<Movie> = MovieAPIClient.getMovies(title)
-        call.enqueue(object: Callback<Movie>{
-            override fun onFailure(call: Call<Movie>, t: Throwable) {
+        val call: Call<SearchResponse> = MovieAPIClient.getMovies(title)
+        call.enqueue(object: Callback<SearchResponse>{
+            override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 t.printStackTrace()
                 Log.e("FAILED MOVIE API CONN", t.message)
             }
 
-            override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
-                val resp: Movie? = response.body()
-                Log.d("response", "" + response)
-                Log.d("fuckoff", "" + response.body())
-                //heroes.add(1,resp!!)
+            override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
+                val resp: SearchResponse? = response.body()
+                Log.d("psofos", "" + response.message())
+                Log.d("fuckoff", "" + resp)
+                val search: List<Movie>? = resp?.search
+                Log.d("maou", ""+search)
+                resp?.search?.let { movies.addAll(it) }
 
                 recyclerView_movies.adapter?.notifyDataSetChanged()
 
@@ -73,5 +72,6 @@ class MainActivity : AppCompatActivity() {
 
         })
     }
+
 }
 
