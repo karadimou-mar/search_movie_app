@@ -11,13 +11,14 @@ import com.example.moviessearchengine.model.Movie
 import com.example.moviessearchengine.utils.loadImage
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieAdapter (private val movie: ArrayList<Movie>): RecyclerView.Adapter<MovieAdapter.ViewHolder>(){
+class MovieAdapter (private val movie: ArrayList<Movie>, private val itemClickListener: OnItemClickListener): RecyclerView.Adapter<MovieAdapter.ViewHolder>(){
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvTitle.text = movie[position].title
         holder.tvYear.text = movie[position].year
         holder.ivPoster.loadImage(movie[position].poster)
         holder.itemView.setBackgroundColor(Color.WHITE)
+        holder.bind(movie[position],itemClickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,5 +33,15 @@ class MovieAdapter (private val movie: ArrayList<Movie>): RecyclerView.Adapter<M
         val tvTitle: TextView = view.textView_title
         val tvYear:TextView = view.textView_year
         val ivPoster: ImageView = view.imageView_thumbnail
+
+        fun bind(movie: Movie?, clickListener: OnItemClickListener){
+            itemView.setOnClickListener {
+                clickListener.onItemClicked(movie)
+            }
+        }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClicked(movie: Movie?)
     }
 }

@@ -1,8 +1,9 @@
 package com.example.moviessearchengine.view
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviessearchengine.MovieAdapter
@@ -13,12 +14,13 @@ import com.example.moviessearchengine.network.MovieAPIClient
 import com.example.moviessearchengine.utils.ListDecorationPadding
 import com.example.moviessearchengine.utils.hideKeyboard
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.item_movie.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+//TODO: synthetic kotlin change
+
+class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener {
 
     val movies = ArrayList<Movie>()
 
@@ -33,14 +35,15 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
 
-        val adapter = MovieAdapter(movies)
+        val adapter = MovieAdapter(movies, this)
 
-        recyclerView_movies.adapter = adapter
+        recyclerView.adapter = adapter
 
         recyclerView.addItemDecoration(
             ListDecorationPadding(this, 0, 0)
 
         )
+
 
         button_search.setOnClickListener {
             movies.clear()
@@ -60,8 +63,6 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
                 val resp: SearchResponse? = response.body()
-                Log.d("psofos", "" + response.message())
-                Log.d("fuckoff", "" + resp)
                 val search: List<Movie>? = resp?.search
                 Log.d("maou", ""+search)
                 resp?.search?.let { movies.addAll(it) }
@@ -71,6 +72,13 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onItemClicked(movie: Movie?) {
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra("title", movie?.title)
+        intent.putExtra("poster", movie?.poster)
+        this.startActivity(intent)
     }
 
 }
