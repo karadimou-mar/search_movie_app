@@ -2,6 +2,7 @@ package com.example.moviessearchengine.network
 
 import com.example.moviessearchengine.BuildConfig
 import com.example.moviessearchengine.model.Movie
+import com.example.moviessearchengine.model.MovieDetail
 import com.example.moviessearchengine.model.SearchResponse
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -21,5 +22,9 @@ object MovieAPIClient {
 
     fun getMovies(title: String): Call<SearchResponse>{
         return api.getMovies(title, BuildConfig.API_KEY)
+    }
+
+    fun getMovieDetails(title: String): Call<MovieDetail>{
+        return api.getMovieDetails(title, BuildConfig.API_KEY)
     }
 }

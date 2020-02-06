@@ -7,4 +7,5 @@
     <string name="_10_10">10/10</string>
     <string name="rotten_tomatoes">Rotten Tomatoes</string>
     <string name="metacritic">Metacritic</string>
+    <string name="description">description</string>
 </resources>

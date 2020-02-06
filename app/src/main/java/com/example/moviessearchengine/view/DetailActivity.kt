@@ -10,6 +10,8 @@ import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.item_movie.*
 import kotlinx.android.synthetic.main.item_movie.textView_title
 
+//TODO: landscape layout
+
 class DetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

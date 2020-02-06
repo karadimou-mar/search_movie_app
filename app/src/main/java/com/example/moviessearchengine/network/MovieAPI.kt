@@ -1,6 +1,7 @@
 package com.example.moviessearchengine.network
 
 import com.example.moviessearchengine.model.Movie
+import com.example.moviessearchengine.model.MovieDetail
 import com.example.moviessearchengine.model.SearchResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -12,5 +13,10 @@ interface MovieAPI {
     fun getMovies(
         @Query("s") title: String,
         @Query("apikey") apikey: String): Call<SearchResponse>
+
+    @GET("/?plot=full")
+    fun getMovieDetails(
+        @Query("t") title: String,
+        @Query("apikey") apikey: String) : Call<MovieDetail>
 
 }
