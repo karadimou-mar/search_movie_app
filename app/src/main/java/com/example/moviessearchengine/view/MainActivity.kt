@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviessearchengine.MovieAdapter
 import com.example.moviessearchengine.R
 import com.example.moviessearchengine.model.Movie
-import com.example.moviessearchengine.model.MovieDetail
 import com.example.moviessearchengine.model.SearchResponse
 import com.example.moviessearchengine.network.MovieAPIClient
+import com.example.moviessearchengine.network.MovieAPIClient.getMovieDetails
 import com.example.moviessearchengine.utils.ListDecorationPadding
 import com.example.moviessearchengine.utils.hideKeyboard
 import kotlinx.android.synthetic.main.activity_main.*
@@ -24,7 +24,9 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener {
 
+
     val movies = ArrayList<Movie>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,27 +78,13 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener {
         })
     }
 
-    private fun getMovieDetails(title: String){
-        val call: Call<MovieDetail> = MovieAPIClient.getMovieDetails(title)
-        call.enqueue(object: Callback<MovieDetail>{
-            override fun onFailure(call: Call<MovieDetail>, t: Throwable) {
-                t.printStackTrace()
-                Log.e("getMovieDetails FAILED", t.message!!)
-            }
-
-            override fun onResponse(call: Call<MovieDetail>, response: Response<MovieDetail>) {
-                val resp: MovieDetail? = response.body()
-                Log.d("BOOM",""+resp)
-            }
-
-        })
-    }
 
     override fun onItemClicked(movie: Movie?) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("title", movie?.title)
         intent.putExtra("poster", movie?.poster)
         this.startActivity(intent)
+        //TODO: remove from here
         getMovieDetails(movie?.title.toString())
     }
 
