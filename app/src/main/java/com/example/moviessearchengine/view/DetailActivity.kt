@@ -1,5 +1,6 @@
 package com.example.moviessearchengine.view
 
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +18,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 //TODO: landscape layout
+//TODO: Parcelable?
 
 class DetailActivity : AppCompatActivity() {
 
@@ -61,6 +63,11 @@ class DetailActivity : AppCompatActivity() {
                 val resp: MovieDetail? = response.body()
                 Log.d("BOOM",""+resp)
                 textView_plot.text = resp?.plot
+                textView_directed.text = resp?.director
+                textView_written.text = resp?.writer
+                textView_starring.text = resp?.actor
+                textView_details.text =
+                    resp?.rated + getString(R.string.movie_detail) + resp?.runtime + getString(R.string.movie_detail) + resp?.genre + getString(R.string.movie_detail) + resp?.released
 
             }
 
