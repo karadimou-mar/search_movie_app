@@ -8,4 +8,8 @@
     <string name="rotten_tomatoes">Rotten Tomatoes</string>
     <string name="metacritic">Metacritic</string>
     <string name="description">description</string>
+    <string name="textview">TextView</string>
+    <string name="directed_by">Directed by</string>
+    <string name="written_by">Written by</string>
+    <string name="starring">Starring</string>
 </resources>

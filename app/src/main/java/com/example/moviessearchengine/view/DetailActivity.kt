@@ -25,6 +25,10 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
         getIntentExtras()
 
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+
         //TODO: getMovieDetails with id
         getMovieDetails(textView_title.text.toString())
     }
@@ -61,5 +65,10 @@ class DetailActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
