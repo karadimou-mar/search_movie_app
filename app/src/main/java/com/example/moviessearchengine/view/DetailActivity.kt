@@ -1,17 +1,14 @@
 package com.example.moviessearchengine.view
 
-import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.moviessearchengine.R
 import com.example.moviessearchengine.model.MovieDetail
 import com.example.moviessearchengine.network.MovieAPIClient
-import com.example.moviessearchengine.utils.loadImage
 import com.example.moviessearchengine.utils.loadPoster
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.item_movie.*
 import kotlinx.android.synthetic.main.item_movie.textView_title
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,7 +36,7 @@ class DetailActivity : AppCompatActivity() {
         val bundle: Bundle? = intent.extras
         val title = bundle?.getString("title")
         val poster: String? = bundle?.getString("poster")
-        setIntentExtras(title,poster)
+        setIntentExtras(title, poster)
 
     }
 
@@ -51,9 +48,9 @@ class DetailActivity : AppCompatActivity() {
 
     }
 
-    private fun getMovieDetails(title: String){
+    private fun getMovieDetails(title: String) {
         val call: Call<MovieDetail> = MovieAPIClient.getMovieDetails(title)
-        call.enqueue(object: Callback<MovieDetail> {
+        call.enqueue(object : Callback<MovieDetail> {
             override fun onFailure(call: Call<MovieDetail>, t: Throwable) {
                 t.printStackTrace()
                 Log.e("getMovieDetails FAILED", t.message!!)
@@ -61,15 +58,24 @@ class DetailActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<MovieDetail>, response: Response<MovieDetail>) {
                 val resp: MovieDetail? = response.body()
-                Log.d("BOOM",""+resp)
+                Log.d("BOOM", "" + resp)
                 textView_plot.text = resp?.plot
                 textView_directed.text = resp?.director
                 textView_written.text = resp?.writer
                 textView_starring.text = resp?.actor
                 textView_details.text =
-                    resp?.rated + getString(R.string.movie_detail) + resp?.runtime + getString(R.string.movie_detail) + resp?.genre + getString(R.string.movie_detail) + resp?.released
+                    resp?.rated + getString(R.string.movie_detail) + resp?.runtime + getString(R.string.movie_detail) + resp?.genre + getString(
+                        R.string.movie_detail
+                    ) + resp?.released
                 textView_imdb.text = resp?.imdbRating
-                textView_rt.text = resp?.rating?.get(1)?.value
+                for (i in 0 until resp?.rating!!.size){
+                    if (resp.rating[i].source.isNullOrEmpty()){
+                        textView_rt.text = "N/A"
+                    }else {
+                        textView_rt.text = resp.rating[i].value
+                    }
+                }
+                //textView_rt.text = resp!!.rating?.get(1)?.value
                 textView_mc.text = resp?.metascore
 
             }

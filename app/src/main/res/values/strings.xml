@@ -3,8 +3,8 @@
     <string name="search">Search</string>
     <string name="imdb_score">Imdb score</string>
     <string name="starwars_starwars_starwars_starwars_starwars_starwars">StarWars StarWars StarWars</string>
-    <string name="test_test_test_test_test_test_test_test_test">Test | Test | Test | Test | Test | Test | Test | Test | Test |</string>
-    <string name="_10_10">10/10</string>
+    <string name="test_test_test_test_test_test_test_test_test">N/A | N/A | N/A | N/A |</string>
+    <string name="_10_10">N/A</string>
     <string name="rotten_tomatoes">Rotten Tomatoes</string>
     <string name="metacritic">Metacritic</string>
     <string name="description">description</string>
@@ -12,8 +12,8 @@
     <string name="directed_by">Directed by</string>
     <string name="written_by">Written by</string>
     <string name="starring">Starring</string>
-    <string name="dummy_director">dummy director</string>
-    <string name="dummy_writer">dummy writer</string>
-    <string name="dummy_actor">dummy actor</string>
+    <string name="dummy_director">N/A</string>
+    <string name="dummy_writer">N/A</string>
+    <string name="dummy_actor">N/A</string>
     <string name="movie_detail">|</string>
 </resources>
