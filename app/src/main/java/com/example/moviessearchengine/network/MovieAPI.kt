@@ -12,11 +12,14 @@ interface MovieAPI {
     @GET("/?type=movie")
     fun getMovies(
         @Query("s") title: String,
-        @Query("apikey") apikey: String): Call<SearchResponse>
+        @Query("apikey") apikey: String,
+        @Query("page") page: Int
+    ): Call<SearchResponse>
 
     @GET("/?plot=full")
     fun getMovieDetails(
         @Query("t") title: String,
-        @Query("apikey") apikey: String) : Call<MovieDetail>
+        @Query("apikey") apikey: String
+    ): Call<MovieDetail>
 
 }

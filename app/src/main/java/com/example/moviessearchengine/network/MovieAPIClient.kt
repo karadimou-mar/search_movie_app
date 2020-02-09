@@ -20,8 +20,8 @@ object MovieAPIClient {
         .build()
         .create(MovieAPI::class.java)
 
-    fun getMovies(title: String): Call<SearchResponse>{
-        return api.getMovies(title, BuildConfig.API_KEY)
+    fun getMovies(title: String, page: Int): Call<SearchResponse>{
+        return api.getMovies(title, BuildConfig.API_KEY, page)
     }
 
     fun getMovieDetails(title: String): Call<MovieDetail>{

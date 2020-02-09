@@ -68,6 +68,9 @@ class DetailActivity : AppCompatActivity() {
                 textView_starring.text = resp?.actor
                 textView_details.text =
                     resp?.rated + getString(R.string.movie_detail) + resp?.runtime + getString(R.string.movie_detail) + resp?.genre + getString(R.string.movie_detail) + resp?.released
+                textView_imdb.text = resp?.imdbRating
+                textView_rt.text = resp?.rating?.get(1)?.value
+                textView_mc.text = resp?.metascore
 
             }
 

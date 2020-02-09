@@ -6,27 +6,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviessearchengine.model.Movie
 import com.example.moviessearchengine.utils.loadImage
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieAdapter (private val movie: ArrayList<Movie>, private val itemClickListener: OnItemClickListener): RecyclerView.Adapter<MovieAdapter.ViewHolder>(){
+class MovieAdapter (private val itemClickListener: OnItemClickListener): PagedListAdapter<Movie,MovieAdapter.ViewHolder>(
+    movieDiff){
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvTitle.text = movie[position].title
-        holder.tvYear.text = movie[position].year
-        holder.ivPoster.loadImage(movie[position].poster)
+        val movie = getItem(position)
+        holder.tvTitle.text = movie!!.title
+        holder.tvYear.text = movie.year
+        holder.ivPoster.loadImage(movie.poster)
         holder.itemView.setBackgroundColor(Color.WHITE)
-        holder.bind(movie[position],itemClickListener)
+        holder.bind(movie,itemClickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movie,parent,false))
-    }
-
-    override fun getItemCount(): Int {
-        return movie.size
     }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
@@ -37,6 +37,24 @@ class MovieAdapter (private val movie: ArrayList<Movie>, private val itemClickLi
         fun bind(movie: Movie?, clickListener: OnItemClickListener){
             itemView.setOnClickListener {
                 clickListener.onItemClicked(movie)
+            }
+        }
+    }
+
+    companion object {
+        val movieDiff = object : DiffUtil.ItemCallback<Movie>() {
+            override fun areItemsTheSame(
+                oldItem: Movie,
+                newItem: Movie
+            ): Boolean {
+                return oldItem.imdbID == newItem.imdbID
+            }
+
+            override fun areContentsTheSame(
+                oldItem: Movie,
+                newItem: Movie
+            ): Boolean {
+                return oldItem.title== newItem.title && oldItem.poster == newItem.poster && oldItem.year == newItem.year
             }
         }
     }

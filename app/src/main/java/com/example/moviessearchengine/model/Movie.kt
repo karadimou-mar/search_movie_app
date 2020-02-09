@@ -7,8 +7,8 @@ data class Movie(
     val title: String? = null,
     @SerializedName("Year")
     val year: String? = null,
-//    @SerializedName("imdbID")
-//    val imdbID: String,
+    @SerializedName("imdbID")
+    val imdbID: String,
 //    @SerializedName("Type")
 //    val type: String,
     @SerializedName("Poster")
