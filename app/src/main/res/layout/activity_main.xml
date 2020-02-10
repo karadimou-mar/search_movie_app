@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/editText_search" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.example.moviessearchengine.MovieRecyclerView
         android:id="@+id/recyclerView_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -57,18 +57,18 @@
         app:layout_constraintVertical_bias="0.479"
         app:srcCompat="@drawable/search" />
 
-        <ImageView
-            android:id="@+id/imageView_no_result"
-            android:layout_width="411dp"
-            android:layout_height="507dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText_search"
-            app:layout_constraintVertical_bias="0.479"
-            app:srcCompat="@drawable/no_result" />
+    <ImageView
+        android:id="@+id/imageView_no_result"
+        android:layout_width="411dp"
+        android:layout_height="507dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_search"
+        app:layout_constraintVertical_bias="0.479"
+        app:srcCompat="@drawable/no_result_trans" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

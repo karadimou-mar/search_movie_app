@@ -13,10 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moviessearchengine.ConnectivityReceiver
-import com.example.moviessearchengine.MovieAdapter
-import com.example.moviessearchengine.MovieViewModel
-import com.example.moviessearchengine.R
+import com.example.moviessearchengine.*
 import com.example.moviessearchengine.model.Movie
 import com.example.moviessearchengine.network.MovieAPIClient.getMovieDetails
 import com.example.moviessearchengine.utils.ListDecorationPadding
@@ -42,7 +39,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener, Conn
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView_movies)
+        val recyclerView = findViewById<MovieRecyclerView>(R.id.recyclerView_movies)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -50,6 +47,8 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener, Conn
         val adapter = MovieAdapter(this)
 
         recyclerView.adapter = adapter
+        recyclerView.setNoResultImage(imageView_no_result)
+
 
         recyclerView.addItemDecoration(
             ListDecorationPadding(this, 0, 0)
