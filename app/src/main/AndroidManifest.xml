@@ -18,8 +18,8 @@
         android:windowSoftInputMode="adjustPan"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.DetailActivity" />
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.ui.DetailActivity" />
+        <activity android:name=".view.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <receiver
-            android:name=".ConnectivityReceiver"
+            android:name=".network.connectivity.ConnectivityReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>

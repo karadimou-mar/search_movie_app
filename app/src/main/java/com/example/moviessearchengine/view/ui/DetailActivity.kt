@@ -1,11 +1,11 @@
-package com.example.moviessearchengine.view
+package com.example.moviessearchengine.view.ui
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moviessearchengine.R
 import com.example.moviessearchengine.model.MovieDetail
-import com.example.moviessearchengine.network.MovieAPIClient
+import com.example.moviessearchengine.network.api.MovieAPIClient
 import com.example.moviessearchengine.utils.loadPoster
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.item_movie.textView_title
@@ -71,7 +71,6 @@ class DetailActivity : AppCompatActivity() {
                         textView_rt.text = resp.rating[i].value
                     }
                 }
-                //textView_rt.text = resp!!.rating?.get(1)?.value
                 textView_mc.text = resp?.metascore
 
             }

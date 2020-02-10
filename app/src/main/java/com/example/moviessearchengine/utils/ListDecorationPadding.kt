@@ -9,14 +9,15 @@ import com.example.moviessearchengine.R
 
 class ListDecorationPadding(
     context: Context,
-    val paddingLeft: Int,
-    val paddingRight: Int
+    private val paddingLeft: Int,
+    private val paddingRight: Int
 ) : RecyclerView.ItemDecoration() {
 
     private var mDivider: Drawable? = null
 
     init {
-        mDivider = ContextCompat.getDrawable(context,
+        mDivider = ContextCompat.getDrawable(
+            context,
             R.drawable.divider
         )
     }

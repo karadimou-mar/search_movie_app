@@ -1,7 +1,6 @@
-package com.example.moviessearchengine.network
+package com.example.moviessearchengine.network.api
 
 import com.example.moviessearchengine.BuildConfig
-import com.example.moviessearchengine.model.Movie
 import com.example.moviessearchengine.model.MovieDetail
 import com.example.moviessearchengine.model.SearchResponse
 import retrofit2.Call

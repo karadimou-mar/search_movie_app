@@ -1,4 +1,4 @@
-package com.example.moviessearchengine.view
+package com.example.moviessearchengine.view.ui
 
 import android.content.Intent
 import android.content.IntentFilter
@@ -12,12 +12,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.moviessearchengine.*
+import com.example.moviessearchengine.R
 import com.example.moviessearchengine.model.Movie
-import com.example.moviessearchengine.network.MovieAPIClient.getMovieDetails
+import com.example.moviessearchengine.network.api.MovieAPIClient.getMovieDetails
+import com.example.moviessearchengine.network.connectivity.ConnectivityReceiver
 import com.example.moviessearchengine.utils.ListDecorationPadding
 import com.example.moviessearchengine.utils.hideKeyboard
+import com.example.moviessearchengine.view.adapter.MovieAdapter
+import com.example.moviessearchengine.viewmodel.MovieViewModel
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,7 +29,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 //TODO: onfailure
 //TODO: show/hide progressbar
 
-class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener, ConnectivityReceiver.ConnectivityReceiverListener {
+class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
+    ConnectivityReceiver.ConnectivityReceiverListener {
 
     private var snackBar: Snackbar? = null
 
@@ -44,7 +47,8 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener, Conn
         recyclerView.layoutManager = LinearLayoutManager(this)
 
 
-        val adapter = MovieAdapter(this)
+        val adapter =
+            MovieAdapter(this)
 
         recyclerView.adapter = adapter
         recyclerView.setNoResultImage(imageView_no_result)
@@ -61,28 +65,31 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener, Conn
             checkConnection()
             getMovies(editText_search.text.toString(), this, adapter)
             recyclerView.visibility = View.VISIBLE
-            //imageView_no_result.visibility = View.GONE
 
         }
-        registerReceiver(ConnectivityReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+        registerReceiver(
+            ConnectivityReceiver(),
+            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        )
 
     }
 
     private fun getMovies(title: String, activity: AppCompatActivity, adapter: MovieAdapter) {
         activity.viewModelStore.clear()
         val movieViewModel =
-            ViewModelProviders.of(activity, MyViewModelFactory(title)).get<MovieViewModel>(
+            ViewModelProviders.of(
+                activity,
+                MyViewModelFactory(
+                    title
+                )
+            ).get<MovieViewModel>(
                 MovieViewModel::class.java
             )
 
         movieViewModel.moviePagedList.observe(activity, Observer { items ->
             adapter.submitList(items)
 
-//            imageView_no_result.visibility = View.VISIBLE
-//            recyclerView_movies.setBackgroundColor(Color.WHITE)
-
         })
-
 
 
     }
@@ -110,11 +117,15 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener, Conn
     }
 
     private fun showNetworkMessage(isConnected: Boolean) {
-        if (!isConnected){
-            snackBar = Snackbar.make(findViewById(R.id.constraint_layout), "You are offline. Check your network!", Snackbar.LENGTH_LONG)
+        if (!isConnected) {
+            snackBar = Snackbar.make(
+                findViewById(R.id.constraint_layout),
+                "You are offline. Check your network!",
+                Snackbar.LENGTH_LONG
+            )
             snackBar?.duration = BaseTransientBottomBar.LENGTH_INDEFINITE
             snackBar?.show()
-        }else{
+        } else {
             snackBar?.dismiss()
         }
     }

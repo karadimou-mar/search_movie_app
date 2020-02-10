@@ -1,4 +1,4 @@
-package com.example.moviessearchengine
+package com.example.moviessearchengine.network.connectivity
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -17,7 +17,6 @@ class ConnectivityReceiver : BroadcastReceiver() {
             )
         }
     }
-
 
     interface ConnectivityReceiverListener {
         fun onNetworkConnectionChanged(isConnected: Boolean)

@@ -19,18 +19,18 @@ fun AppCompatActivity.hideKeyboard() {
     // }
 }
 
-fun ImageView.loadImage(url: String?){
+fun ImageView.loadImage(url: String?) {
     Glide.with(context)
         .load(url)
-        .apply(RequestOptions().override(60,60))
+        .apply(RequestOptions().override(60, 60))
         .into(this)
 
 }
 
-fun ImageView.loadPoster(url: String?){
+fun ImageView.loadPoster(url: String?) {
     Glide.with(context)
         .load(url)
-        .apply(RequestOptions().override(400,600))
+        .apply(RequestOptions().override(400, 600))
         .into(this)
     //TODO: size
 

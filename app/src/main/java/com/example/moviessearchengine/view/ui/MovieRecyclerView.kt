@@ -1,4 +1,4 @@
-package com.example.moviessearchengine
+package com.example.moviessearchengine.view.ui
 
 import android.content.Context
 import android.graphics.Color
@@ -8,10 +8,10 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.view.*
 
-class MovieRecyclerView: RecyclerView {
+class MovieRecyclerView : RecyclerView {
 
     private var noResultImage: ImageView? = null
-    private val adapterObserver = object : AdapterDataObserver(){
+    private val adapterObserver = object : AdapterDataObserver() {
         override fun onChanged() {
             toggleView()
         }
@@ -21,7 +21,7 @@ class MovieRecyclerView: RecyclerView {
         }
 
         override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
-           toggleView()
+            toggleView()
         }
 
         override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
@@ -38,14 +38,13 @@ class MovieRecyclerView: RecyclerView {
         }
     }
 
-    private fun toggleView(){
-        if (adapter != null && noResultImage != null){
-            if (adapter!!.itemCount == 0){
+    private fun toggleView() {
+        if (adapter != null && noResultImage != null) {
+            if (adapter!!.itemCount == 0) {
                 visibility = View.GONE
                 noResultImage!!.visibility = View.VISIBLE
                 recyclerView_movies.setBackgroundColor(Color.WHITE)
-            }
-            else{
+            } else {
                 noResultImage!!.visibility = View.GONE
                 visibility = View.VISIBLE
             }
@@ -58,10 +57,9 @@ class MovieRecyclerView: RecyclerView {
         adapterObserver.onChanged()
     }
 
-    fun setNoResultImage(image: ImageView){
+    fun setNoResultImage(image: ImageView) {
         noResultImage = image
     }
-
 
 
     constructor(context: Context) : super(context)

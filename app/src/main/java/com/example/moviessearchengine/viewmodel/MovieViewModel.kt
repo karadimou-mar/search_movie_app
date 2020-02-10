@@ -1,4 +1,4 @@
-package com.example.moviessearchengine
+package com.example.moviessearchengine.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -6,15 +6,19 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
 import com.example.moviessearchengine.model.Movie
+import com.example.moviessearchengine.view.paging.MovieDataSourceFactory
 
-class MovieViewModel(movie : String) : ViewModel() {
+class MovieViewModel(movie: String) : ViewModel() {
 
-    var moviePagedList : LiveData<PagedList<Movie>>
+    var moviePagedList: LiveData<PagedList<Movie>>
     var liveDataSource: LiveData<PageKeyedDataSource<Int, Movie>>
 
 
     init {
-        val dataSourceFactory = MovieDataSourceFactory(movie)
+        val dataSourceFactory =
+            MovieDataSourceFactory(
+                movie
+            )
         liveDataSource = dataSourceFactory.itemLiveDataSource
 
         val config = PagedList.Config.Builder()
