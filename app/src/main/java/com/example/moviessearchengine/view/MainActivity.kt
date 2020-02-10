@@ -1,9 +1,11 @@
 package com.example.moviessearchengine.view
 
-import android.app.Application
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -11,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moviessearchengine.ConnectivityReceiver
 import com.example.moviessearchengine.MovieAdapter
 import com.example.moviessearchengine.MovieViewModel
 import com.example.moviessearchengine.R
@@ -18,6 +21,8 @@ import com.example.moviessearchengine.model.Movie
 import com.example.moviessearchengine.network.MovieAPIClient.getMovieDetails
 import com.example.moviessearchengine.utils.ListDecorationPadding
 import com.example.moviessearchengine.utils.hideKeyboard
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -25,23 +30,24 @@ import kotlinx.android.synthetic.main.activity_main.*
 //TODO: onfailure
 //TODO: show/hide progressbar
 
-class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener {
+class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener, ConnectivityReceiver.ConnectivityReceiverListener {
 
-
-    val movies = ArrayList<Movie>()
+    private var snackBar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         hideKeyboard()
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView_movies)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
 
-        val adapter = MovieAdapter( this)
+        val adapter = MovieAdapter(this)
 
         recyclerView.adapter = adapter
 
@@ -50,45 +56,36 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener {
 
         )
 
-
         button_search.setOnClickListener {
             imageView_search.visibility = View.GONE
             hideKeyboard()
-            getMovies(editText_search.text.toString(),this,adapter)
+            checkConnection()
+            getMovies(editText_search.text.toString(), this, adapter)
             recyclerView.visibility = View.VISIBLE
+            //imageView_no_result.visibility = View.GONE
 
         }
-
-
+        registerReceiver(ConnectivityReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
 
     }
 
-    private fun getMovies(title: String ,activity : AppCompatActivity, adapter: MovieAdapter) {
+    private fun getMovies(title: String, activity: AppCompatActivity, adapter: MovieAdapter) {
         activity.viewModelStore.clear()
-        val movieViewModel = ViewModelProviders.of(activity, MyViewModelFactory(title)).get<MovieViewModel>(
-            MovieViewModel::class.java)
+        val movieViewModel =
+            ViewModelProviders.of(activity, MyViewModelFactory(title)).get<MovieViewModel>(
+                MovieViewModel::class.java
+            )
 
         movieViewModel.moviePagedList.observe(activity, Observer { items ->
             adapter.submitList(items)
 
+//            imageView_no_result.visibility = View.VISIBLE
+//            recyclerView_movies.setBackgroundColor(Color.WHITE)
+
         })
-//        val call: Call<SearchResponse> = MovieAPIClient.getMovies(title)
-//        call.enqueue(object: Callback<SearchResponse>{
-//            override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
-//                t.printStackTrace()
-//                Log.e("getMovies FAILED", t.message!!)
-//            }
-//
-//            override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
-//                val resp: SearchResponse? = response.body()
-//                val search: List<Movie>? = resp?.search
-//                resp?.search?.let { movies.addAll(it) }
-//
-//                recyclerView_movies.adapter?.notifyDataSetChanged()
-//
-//            }
-//
-//        })
+
+
+
     }
 
 
@@ -101,12 +98,32 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener {
         getMovieDetails(movie?.title.toString())
     }
 
-    class MyViewModelFactory( private val mParam: String) :
+    class MyViewModelFactory(private val mParam: String) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return MovieViewModel( mParam) as T
+            return MovieViewModel(mParam) as T
         }
 
+    }
+
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        showNetworkMessage(isConnected)
+    }
+
+    private fun showNetworkMessage(isConnected: Boolean) {
+        if (!isConnected){
+            snackBar = Snackbar.make(findViewById(R.id.constraint_layout), "You are offline. Check your network!", Snackbar.LENGTH_LONG)
+            snackBar?.duration = BaseTransientBottomBar.LENGTH_INDEFINITE
+            snackBar?.show()
+        }else{
+            snackBar?.dismiss()
+        }
+    }
+
+    private fun checkConnection(): Boolean {
+        val isConnected = ConnectivityReceiver.isConnectedOrConnecting(this)
+        showNetworkMessage(isConnected)
+        return isConnected
     }
 
 }

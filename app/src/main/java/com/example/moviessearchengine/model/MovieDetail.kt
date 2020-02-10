@@ -3,7 +3,6 @@ package com.example.moviessearchengine.model
 
 import com.google.gson.annotations.SerializedName
 
-//TODO: fetch poster and title from here??
 
 data class MovieDetail(
     @SerializedName("Title")

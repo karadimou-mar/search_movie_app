@@ -2,7 +2,6 @@ package com.example.moviessearchengine.view
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moviessearchengine.R
 import com.example.moviessearchengine.model.MovieDetail
@@ -14,8 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-//TODO: landscape layout
-//TODO: Parcelable?
+//TODO: imageview fit
 
 class DetailActivity : AppCompatActivity() {
 
@@ -27,8 +25,6 @@ class DetailActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-
-        //TODO: getMovieDetails with id
         getMovieDetails(textView_title.text.toString())
     }
 
@@ -68,10 +64,10 @@ class DetailActivity : AppCompatActivity() {
                         R.string.movie_detail
                     ) + resp?.released
                 textView_imdb.text = resp?.imdbRating
-                for (i in 0 until resp?.rating!!.size){
-                    if (resp.rating[i].source.isNullOrEmpty()){
+                for (i in 0 until resp?.rating!!.size) {
+                    if (resp.rating[i].source.isNullOrEmpty()) {
                         textView_rt.text = "N/A"
-                    }else {
+                    } else {
                         textView_rt.text = resp.rating[i].value
                     }
                 }

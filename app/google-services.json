@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "523757285145",
+    "firebase_url": "https://searchmovieapp.firebaseio.com",
+    "project_id": "searchmovieapp",
+    "storage_bucket": "searchmovieapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:523757285145:android:5d75390bcc3e0cbf80df88",
+        "android_client_info": {
+          "package_name": "com.example.moviessearchengine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "523757285145-d8hve61l6pdghd7mpr76tvos9p8hphi2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.moviessearchengine",
+            "certificate_hash": "33daf0931328fcbe6e27d65ddff7b2efa3e0d5d5"
+          }
+        },
+        {
+          "client_id": "523757285145-8a8mjraetn3lkr58n77uml3ms0i214ju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANlzAyUy7eUUq5U4rO00s_b8A-awt9qwk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "523757285145-8a8mjraetn3lkr58n77uml3ms0i214ju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

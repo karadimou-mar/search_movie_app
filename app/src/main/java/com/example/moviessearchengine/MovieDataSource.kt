@@ -1,6 +1,7 @@
 package com.example.moviessearchengine
 
 import android.util.Log
+import android.widget.Toast
 import androidx.paging.PageKeyedDataSource
 import com.example.moviessearchengine.model.Movie
 import com.example.moviessearchengine.model.SearchResponse
@@ -13,11 +14,11 @@ import retrofit2.Response
 
 class MovieDataSource(movie:String): PageKeyedDataSource<Int, Movie>() {
 
+
     private val m = movie
     companion object{
         const val PAGE = 1
     }
-
 
 
     override fun loadInitial(
@@ -34,8 +35,12 @@ class MovieDataSource(movie:String): PageKeyedDataSource<Int, Movie>() {
             override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
                 val resp: SearchResponse? = response.body()
 //                val search: List<Movie>? = resp?.search
-                callback.onResult(resp?.search as MutableList<Movie>, null, PAGE+1)
+                if (resp?.search != null) {
+                    callback.onResult(resp?.search as MutableList<Movie>, null, PAGE + 1)
+                }else{
+                    Log.d("NO_RESULT", "No result found!")
 
+                }
             }
 
         })
