@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.paging.PagedListAdapter
@@ -15,9 +16,7 @@ import com.example.moviessearchengine.utils.loadImage
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter(private val itemClickListener: OnItemClickListener) :
-    PagedListAdapter<Movie, MovieAdapter.ViewHolder>(
-        movieDiff
-    ) {
+    PagedListAdapter<Movie, MovieAdapter.ViewHolder>(movieDiff) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = getItem(position)
@@ -37,6 +36,9 @@ class MovieAdapter(private val itemClickListener: OnItemClickListener) :
             )
         )
     }
+
+
+
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvTitle: TextView = view.textView_title

@@ -2,6 +2,7 @@ package com.example.moviessearchengine.view.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moviessearchengine.R
 import com.example.moviessearchengine.model.MovieDetail
@@ -19,6 +20,7 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_detail)
         getIntentExtras()
 
@@ -37,10 +39,10 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setIntentExtras(title: String?, poster: String?) {
-//         val titleT: TextView = findViewById(R.id.textView_title)
-//         titleT.text = title
+
         textView_title.text = title
         imageView_poster.loadPoster(poster)
+
 
     }
 
@@ -55,6 +57,12 @@ class DetailActivity : AppCompatActivity() {
             override fun onResponse(call: Call<MovieDetail>, response: Response<MovieDetail>) {
                 val resp: MovieDetail? = response.body()
                 Log.d("BOOM", "" + resp)
+//                try {
+//                    Thread.sleep(2000)
+//                    progress_bar_detail.visibility = View.VISIBLE
+//                }catch (e: Exception){
+//                    e.printStackTrace()
+//                }
                 textView_plot.text = resp?.plot
                 textView_directed.text = resp?.director
                 textView_written.text = resp?.writer

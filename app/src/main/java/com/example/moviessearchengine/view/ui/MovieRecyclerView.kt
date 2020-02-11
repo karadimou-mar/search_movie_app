@@ -1,16 +1,39 @@
 package com.example.moviessearchengine.view.ui
 
 import android.content.Context
-import android.graphics.Color
+import android.os.Handler
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.view.*
+
 
 class MovieRecyclerView : RecyclerView {
 
+
     private var noResultImage: ImageView? = null
+    private var progressBar: ProgressBar? = null
+
+    private val hand = Handler()
+    private val runnable = Runnable {
+        noResultImage!!.visibility = View.VISIBLE
+        progressBar!!.visibility = View.GONE
+    }
+
+    private fun start() {
+        noResultImage!!.visibility = View.GONE
+        progressBar!!.visibility = View.VISIBLE
+        hand.postDelayed(runnable, 2000)
+    }
+
+    private fun stop() {
+        noResultImage!!.visibility = View.GONE
+        progressBar!!.visibility = View.GONE
+        hand.removeCallbacks(runnable)
+    }
+
+
     private val adapterObserver = object : AdapterDataObserver() {
         override fun onChanged() {
             toggleView()
@@ -38,18 +61,19 @@ class MovieRecyclerView : RecyclerView {
         }
     }
 
+
     private fun toggleView() {
         if (adapter != null && noResultImage != null) {
             if (adapter!!.itemCount == 0) {
-                visibility = View.GONE
-                noResultImage!!.visibility = View.VISIBLE
-                recyclerView_movies.setBackgroundColor(Color.WHITE)
+                start()
             } else {
-                noResultImage!!.visibility = View.GONE
+                stop()
                 visibility = View.VISIBLE
+
             }
         }
     }
+
 
     override fun setAdapter(adapter: Adapter<*>?) {
         super.setAdapter(adapter)
@@ -59,6 +83,10 @@ class MovieRecyclerView : RecyclerView {
 
     fun setNoResultImage(image: ImageView) {
         noResultImage = image
+    }
+
+    fun setProgressBar(pb: ProgressBar) {
+        progressBar = pb
     }
 
 

@@ -9,6 +9,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 //TODO: check loadBefore()
 
 class MovieDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
@@ -29,16 +30,17 @@ class MovieDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
             m,
             PAGE
         )
+
         call.enqueue(object : Callback<SearchResponse> {
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 t.printStackTrace()
                 Log.e("getMovies FAILED", t.message!!)
             }
-
             override fun onResponse(
                 call: Call<SearchResponse>,
                 response: Response<SearchResponse>
             ) {
+
                 val resp: SearchResponse? = response.body()
 //                val search: List<Movie>? = resp?.search
                 if (resp?.search != null) {

@@ -51,7 +51,9 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
             MovieAdapter(this)
 
         recyclerView.adapter = adapter
+
         recyclerView.setNoResultImage(imageView_no_result)
+        recyclerView.setProgressBar(progress_bar_main)
 
 
         recyclerView.addItemDecoration(
@@ -64,7 +66,6 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
             hideKeyboard()
             checkConnection()
             getMovies(editText_search.text.toString(), this, adapter)
-            recyclerView.visibility = View.VISIBLE
 
         }
         registerReceiver(
@@ -72,22 +73,17 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
             IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         )
 
+
     }
 
     private fun getMovies(title: String, activity: AppCompatActivity, adapter: MovieAdapter) {
         activity.viewModelStore.clear()
-        val movieViewModel =
-            ViewModelProviders.of(
-                activity,
-                MyViewModelFactory(
-                    title
-                )
-            ).get<MovieViewModel>(
-                MovieViewModel::class.java
-            )
+        val movieViewModel = ViewModelProviders.of(activity, MyViewModelFactory(title))
+            .get<MovieViewModel>(MovieViewModel::class.java)
 
         movieViewModel.moviePagedList.observe(activity, Observer { items ->
             adapter.submitList(items)
+
 
         })
 
