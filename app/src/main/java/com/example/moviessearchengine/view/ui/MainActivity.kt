@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
 
     companion object {
         const val TAG = "MainActivity"
-        
+
     }
 
     private var snackBar: Snackbar? = null
