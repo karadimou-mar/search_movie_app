@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -32,11 +33,19 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
     ConnectivityReceiver.ConnectivityReceiverListener {
 
+    companion object {
+        const val TAG = "MainActivity"
+        
+    }
+
     private var snackBar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Log.d(TAG, "onCreate: called")
+
 
         hideKeyboard()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
@@ -131,6 +140,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
         showNetworkMessage(isConnected)
         return isConnected
     }
+
 
 }
 

@@ -1,4 +1,4 @@
-package com.example.moviessearchengine
+package com.example.moviessearchengine.view.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
-import com.example.moviessearchengine.view.ui.MainActivity
+import com.example.moviessearchengine.R
 
 class SplashActivity : AppCompatActivity() {
 
