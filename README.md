@@ -1,4 +1,4 @@
-#A Movie Search Engine with REST API, Retrofit2, Kotlin.
+# A Movie Search Engine with REST API, Retrofit2, Kotlin.
 
 ## About
 
@@ -13,4 +13,4 @@ The android app lets you:
 - Display details of a selected movie into a new screen
 
 ## Screenshots
-![](/screenshots/1.png)
+![](/app/screenshots/1.png) ![](/app/screenshots/2.png)
