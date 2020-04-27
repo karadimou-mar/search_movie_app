@@ -11,7 +11,7 @@ import com.example.moviessearchengine.view.paging.MovieDataSourceFactory
 class MovieViewModel(movie: String) : ViewModel() {
 
     var moviePagedList: LiveData<PagedList<Movie>>
-    var liveDataSource: LiveData<PageKeyedDataSource<Int, Movie>>
+    private var liveDataSource: LiveData<PageKeyedDataSource<Int, Movie>>
 
 
     init {

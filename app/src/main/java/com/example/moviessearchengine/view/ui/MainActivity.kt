@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -28,23 +27,16 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 //TODO: synthetic kotlin change
 //TODO: onfailure
-//TODO: show/hide progressbar
 
 class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
     ConnectivityReceiver.ConnectivityReceiverListener {
 
-    companion object {
-        const val TAG = "MainActivity"
-
-    }
 
     private var snackBar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        Log.d(TAG, "onCreate: called")
 
 
         hideKeyboard()
@@ -105,7 +97,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
         intent.putExtra("title", movie?.title)
         intent.putExtra("poster", movie?.poster)
         this.startActivity(intent)
-        //TODO: remove from here
+        //TODO: remove from here??
         getMovieDetails(movie?.title.toString())
     }
 

@@ -57,12 +57,6 @@ class DetailActivity : AppCompatActivity() {
             override fun onResponse(call: Call<MovieDetail>, response: Response<MovieDetail>) {
                 val resp: MovieDetail? = response.body()
                 Log.d("BOOM", "" + resp)
-//                try {
-//                    Thread.sleep(2000)
-//                    progress_bar_detail.visibility = View.VISIBLE
-//                }catch (e: Exception){
-//                    e.printStackTrace()
-//                }
                 textView_plot.text = resp?.plot
                 textView_directed.text = resp?.director
                 textView_written.text = resp?.writer

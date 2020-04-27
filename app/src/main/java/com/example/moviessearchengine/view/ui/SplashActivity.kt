@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import android.view.animation.Animation
@@ -22,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed({
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             finish()
-        },4000)
+        },3000)
 
         val anim: Animation = AnimationUtils.loadAnimation(this,R.anim.splash_animation)
         iv_splash.startAnimation(anim)

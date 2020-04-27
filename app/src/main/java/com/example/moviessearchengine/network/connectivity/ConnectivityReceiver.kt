@@ -7,7 +7,7 @@ import android.net.ConnectivityManager
 
 class ConnectivityReceiver : BroadcastReceiver() {
 
-
+//This method is called when the BroadcastReceiver is receiving an Intent broadcast.
     override fun onReceive(context: Context?, intent: Intent?) {
         if (connectivityReceiverListener != null) {
             connectivityReceiverListener!!.onNetworkConnectionChanged(
