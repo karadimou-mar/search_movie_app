@@ -2,7 +2,7 @@
 
 ## About
 
-This application is about searching and displaying information about movies. The data are fetched from the [OMDB API](http://www.omdbapi.com/). There is alse an improved version of this application using MVVM Architecture and Room Persistence Library placed in this [repository]( https://github.com/karadimou-mar/omdb_movie_app.git).
+This application is about searching and displaying information about movies. The data are fetched from the [OMDB API](http://www.omdbapi.com/). There is also an improved version of this application using MVVM Architecture and Room Persistence Library placed in this [repository]( https://github.com/karadimou-mar/omdb_movie_app.git).
 
 ## Features
 
