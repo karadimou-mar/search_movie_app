@@ -1,6 +1,4 @@
-# Foobar
-
-A Movie Search Engine with REST API, Retrofit2, Kotlin.
+#A Movie Search Engine with REST API, Retrofit2, Kotlin.
 
 ## About
 
