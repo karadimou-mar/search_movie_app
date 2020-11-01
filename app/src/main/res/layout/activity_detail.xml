@@ -2,6 +2,7 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -25,44 +26,51 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/starwars_starwars_starwars_starwars_starwars_starwars"
             android:textColor="@color/white"
-            android:textSize="17dp"
+            android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="starwars_starwars_starwars_starwars_starwars_starwars" />
 
-        <TextView
-            android:id="@+id/textView_details"
+        <HorizontalScrollView
+            android:id="@+id/details_horizontal_scroll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView_title"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/test_test_test_test_test_test_test_test_test"
-            android:textColor="@color/white"
+            android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_title" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_title">
+
+            <TextView
+                android:id="@+id/textView_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_title"
+                tools:text="PG|142 min|Adventure, Fantasy|11 Sep 1990" />
+        </HorizontalScrollView>
 
         <ImageView
             android:id="@+id/imageView_poster"
             android:layout_width="wrap_content"
             android:layout_height="150dp"
-            android:layout_below="@+id/textView_details"
+            android:layout_below="@+id/details_horizontal_scroll"
             android:contentDescription="TODO"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_details"
+            app:layout_constraintTop_toBottomOf="@+id/details_horizontal_scroll"
             app:layout_constraintVertical_bias="0.098" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textView_details"
+            android:layout_below="@id/details_horizontal_scroll"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="10dp"
             android:text="@string/imdb_score"
@@ -71,7 +79,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.55"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_details" />
+            app:layout_constraintTop_toBottomOf="@+id/details_horizontal_scroll" />
 
         <TextView
             android:id="@+id/textView_imdb"
@@ -129,7 +137,7 @@
             android:id="@+id/textView_mc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textView_details"
+            android:layout_below="@id/details_horizontal_scroll"
             android:text="@string/_10_10"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@+id/textView3"

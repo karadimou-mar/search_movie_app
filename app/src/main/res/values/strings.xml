@@ -2,8 +2,6 @@
     <string name="app_name">OMDB viewer</string>
     <string name="search">Search</string>
     <string name="imdb_score">Imdb score</string>
-    <string name="starwars_starwars_starwars_starwars_starwars_starwars">StarWars StarWars StarWars</string>
-    <string name="test_test_test_test_test_test_test_test_test">N/A | N/A | N/A | N/A |</string>
     <string name="_10_10">N/A</string>
     <string name="rotten_tomatoes">Rotten Tomatoes</string>
     <string name="metacritic">Metacritic</string>
