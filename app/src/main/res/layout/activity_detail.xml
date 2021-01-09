@@ -21,7 +21,7 @@
 
 
         <TextView
-            android:id="@+id/textView_title"
+            android:id="@+id/movie_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -39,10 +39,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_title">
+            app:layout_constraintTop_toBottomOf="@+id/movie_title">
 
             <TextView
-                android:id="@+id/textView_details"
+                android:id="@+id/movie_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -50,8 +50,8 @@
                 android:layout_marginEnd="10dp"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_title"
-                tools:text="PG|142 min|Adventure, Fantasy|11 Sep 1990" />
+                app:layout_constraintTop_toBottomOf="@+id/movie_title"
+                tools:text="PG | 142 min | Adventure, Fantasy | 11 Sep 1990" />
         </HorizontalScrollView>
 
         <ImageView
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="150dp"
             android:layout_below="@+id/details_horizontal_scroll"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/this_is_an_movie_poster"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
             app:layout_constraintVertical_bias="0.098" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/imdb_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/details_horizontal_scroll"
@@ -82,20 +82,20 @@
             app:layout_constraintTop_toBottomOf="@+id/details_horizontal_scroll" />
 
         <TextView
-            android:id="@+id/textView_imdb"
+            android:id="@+id/imdb_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textView"
+            android:layout_below="@id/imdb_description"
             android:text="@string/_10_10"
             android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintStart_toStartOf="@+id/imdb_description"
+            app:layout_constraintTop_toBottomOf="@+id/imdb_description" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/rotten_tomatoes_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textView_imdb"
+            android:layout_below="@id/imdb_rating"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="10dp"
             android:text="@string/rotten_tomatoes"
@@ -103,24 +103,24 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView_imdb"
-            app:layout_constraintTop_toBottomOf="@+id/textView_imdb" />
+            app:layout_constraintStart_toStartOf="@+id/imdb_rating"
+            app:layout_constraintTop_toBottomOf="@+id/imdb_rating" />
 
         <TextView
-            android:id="@+id/textView_rt"
+            android:id="@+id/rotten_tomatoes_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textView2"
+            android:layout_below="@id/rotten_tomatoes_description"
             android:text="@string/_10_10"
             android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintStart_toStartOf="@+id/rotten_tomatoes_description"
+            app:layout_constraintTop_toBottomOf="@+id/rotten_tomatoes_description" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/metacritic_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textView_rt"
+            android:layout_below="@id/rotten_tomatoes_rating"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="10dp"
             android:text="@string/metacritic"
@@ -130,21 +130,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.54"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_rt"
+            app:layout_constraintTop_toBottomOf="@+id/rotten_tomatoes_rating"
             app:layout_constraintVertical_bias="0.012" />
 
         <TextView
-            android:id="@+id/textView_mc"
+            android:id="@+id/metacritic_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/details_horizontal_scroll"
             android:text="@string/_10_10"
             android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintStart_toStartOf="@+id/metacritic_description"
+            app:layout_constraintTop_toBottomOf="@+id/metacritic_description" />
 
         <TextView
-            android:id="@+id/textView_plot"
+            android:id="@+id/plot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -155,10 +155,10 @@
             android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_mc" />
+            app:layout_constraintTop_toBottomOf="@+id/metacritic_rating" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/directed_by"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -167,22 +167,22 @@
             android:text="@string/directed_by"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView_plot"
-            app:layout_constraintTop_toBottomOf="@+id/textView_plot" />
+            app:layout_constraintStart_toStartOf="@+id/plot"
+            app:layout_constraintTop_toBottomOf="@+id/plot" />
 
         <TextView
-            android:id="@+id/textView_directed"
+            android:id="@+id/director"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:text="@string/dummy_director"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintStart_toStartOf="@+id/directed_by"
+            app:layout_constraintTop_toBottomOf="@+id/directed_by" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/written_by"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -191,23 +191,23 @@
             android:text="@string/written_by"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView_directed"
-            app:layout_constraintTop_toBottomOf="@+id/textView_directed" />
+            app:layout_constraintStart_toStartOf="@+id/director"
+            app:layout_constraintTop_toBottomOf="@+id/director" />
 
         <TextView
-            android:id="@+id/textView_written"
+            android:id="@+id/writer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:text="@string/dummy_writer"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintStart_toStartOf="@+id/written_by"
+            app:layout_constraintTop_toBottomOf="@+id/written_by" />
 
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/starring_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -216,19 +216,19 @@
             android:text="@string/starring"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView_written"
-            app:layout_constraintTop_toBottomOf="@+id/textView_written" />
+            app:layout_constraintStart_toStartOf="@+id/writer"
+            app:layout_constraintTop_toBottomOf="@+id/writer" />
 
         <TextView
-            android:id="@+id/textView_starring"
+            android:id="@+id/starring"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:text="@string/dummy_actor"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView6"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintStart_toStartOf="@+id/starring_description"
+            app:layout_constraintTop_toBottomOf="@+id/starring_description" />
 
 
         <ProgressBar
@@ -243,7 +243,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

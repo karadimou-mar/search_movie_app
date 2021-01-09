@@ -13,5 +13,4 @@ data class Movie(
     val type: String,
     @SerializedName("Poster")
     val poster: String? = null
-
 )

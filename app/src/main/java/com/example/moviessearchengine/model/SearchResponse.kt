@@ -8,4 +8,5 @@ data class SearchResponse(
     @SerializedName("Response")
     val response: Boolean? = null,
     @SerializedName("Search")
-    val search: List<Movie>? = null)
+    val search: List<Movie>? = null
+)

@@ -16,5 +16,4 @@ class MovieDataSourceFactory(movie: String) : DataSource.Factory<Int, Movie>() {
         itemLiveDataSource.postValue(itemDataSource)
         return itemDataSource
     }
-
 }

@@ -1,26 +1,24 @@
 package com.example.moviessearchengine.view.paging
 
-import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import com.example.moviessearchengine.model.Movie
 import com.example.moviessearchengine.model.SearchResponse
 import com.example.moviessearchengine.network.api.MovieAPIClient
+import com.example.moviessearchengine.utils.logD
+import com.example.moviessearchengine.utils.logE
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 //TODO: check loadBefore()
 
 class MovieDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
-
 
     private val m = movie
 
     companion object {
         const val PAGE = 1
     }
-
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
@@ -34,8 +32,9 @@ class MovieDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
         call.enqueue(object : Callback<SearchResponse> {
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 t.printStackTrace()
-                Log.e("getMovies FAILED", t.message!!)
+                logE("getMovies FAILED", t)
             }
+
             override fun onResponse(
                 call: Call<SearchResponse>,
                 response: Response<SearchResponse>
@@ -44,13 +43,11 @@ class MovieDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
                 val resp: SearchResponse? = response.body()
 //                val search: List<Movie>? = resp?.search
                 if (resp?.search != null) {
-                    callback.onResult(resp?.search as MutableList<Movie>, null, PAGE + 1)
+                    callback.onResult(resp.search as MutableList<Movie>, null, PAGE + 1)
                 } else {
-                    Log.d("LOAD INITIAL", "No result found!")
-
+                    logD("Mo result found!")
                 }
             }
-
         })
     }
 
@@ -59,7 +56,7 @@ class MovieDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
         call.enqueue(object : Callback<SearchResponse> {
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 t.printStackTrace()
-                Log.e("getMovies FAILED", t.message!!)
+                logE("getMovies FAILED", t)
             }
 
             override fun onResponse(
@@ -70,12 +67,11 @@ class MovieDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
 //                val search: List<Movie>? = resp?.search
                 val key = if (response.body() != null) params.key + 1 else null
                 if (resp?.search != null) {
-                    callback.onResult(resp?.search as MutableList<Movie>, key)
+                    callback.onResult(resp.search as MutableList<Movie>, key)
                 } else {
-                    Log.d("LOAD AFTER", "No result found!")
+                    logD("loadAfter: No result found!")
                 }
             }
-
         })
     }
 
@@ -84,7 +80,7 @@ class MovieDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
         call.enqueue(object : Callback<SearchResponse> {
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 t.printStackTrace()
-                Log.e("FAILED API CONNECTION", t.message)
+                logE("loadBefore: FAILED api connection", t)
             }
 
             override fun onResponse(
@@ -95,7 +91,6 @@ class MovieDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
                 val key = if (response.body() != null) params.key - 1 else null
                 callback.onResult(resp?.search as MutableList<Movie>, key)
             }
-
         })
     }
 }

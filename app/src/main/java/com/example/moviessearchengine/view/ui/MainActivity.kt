@@ -24,13 +24,11 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 //TODO: synthetic kotlin change
 //TODO: onfailure
 
 class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
     ConnectivityReceiver.ConnectivityReceiverListener {
-
 
     private var snackBar: Snackbar? = null
 
@@ -38,43 +36,29 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         hideKeyboard()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
-
-        val recyclerView = findViewById<MovieRecyclerView>(R.id.recyclerView_movies)
-
+        val recyclerView = findViewById<MovieRecyclerView>(R.id.movie_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
-
-        val adapter =
-            MovieAdapter(this)
-
+        val adapter = MovieAdapter(this)
         recyclerView.adapter = adapter
-
         recyclerView.setNoResultImage(imageView_no_result)
         recyclerView.setProgressBar(progress_bar_main)
-
-
         recyclerView.addItemDecoration(
             ListDecorationPadding(this, 0, 0)
-
         )
 
-        button_search.setOnClickListener {
+        search_btn.setOnClickListener {
             imageView_search.visibility = View.GONE
             hideKeyboard()
             checkConnection()
-            getMovies(editText_search.text.toString(), this, adapter)
-
+            getMovies(search.text.toString(), this, adapter)
         }
         registerReceiver(
             ConnectivityReceiver(),
             IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         )
-
-
     }
 
     private fun getMovies(title: String, activity: AppCompatActivity, adapter: MovieAdapter) {
@@ -84,13 +68,8 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
 
         movieViewModel.moviePagedList.observe(activity, Observer { items ->
             adapter.submitList(items)
-
-
         })
-
-
     }
-
 
     override fun onItemClicked(movie: Movie?) {
         val intent = Intent(this, DetailActivity::class.java)
@@ -106,7 +85,6 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return MovieViewModel(mParam) as T
         }
-
     }
 
     override fun onNetworkConnectionChanged(isConnected: Boolean) {
@@ -117,7 +95,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
         if (!isConnected) {
             snackBar = Snackbar.make(
                 findViewById(R.id.constraint_layout),
-                "You are offline. Check your network!",
+                getString(R.string.network_error),
                 Snackbar.LENGTH_LONG
             )
             snackBar?.duration = BaseTransientBottomBar.LENGTH_INDEFINITE
@@ -132,7 +110,5 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
         showNetworkMessage(isConnected)
         return isConnected
     }
-
-
 }
 

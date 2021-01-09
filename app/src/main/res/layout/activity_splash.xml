@@ -7,8 +7,9 @@
 
     <ImageView
         android:id="@+id/iv_splash"
-        android:src="@drawable/ic_splash"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:contentDescription="@string/this_is_a_splash_screen_image"
+        android:src="@drawable/ic_splash" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

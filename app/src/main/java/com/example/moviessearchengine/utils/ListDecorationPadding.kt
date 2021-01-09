@@ -38,7 +38,6 @@ class ListDecorationPadding(
                 it.setBounds(left, top, right, bottom)
                 it.draw(c)
             }
-
         }
     }
 }

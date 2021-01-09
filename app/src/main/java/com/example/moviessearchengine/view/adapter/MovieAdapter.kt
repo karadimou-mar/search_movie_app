@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.paging.PagedListAdapter
@@ -37,11 +36,8 @@ class MovieAdapter(private val itemClickListener: OnItemClickListener) :
         )
     }
 
-
-
-
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvTitle: TextView = view.textView_title
+        val tvTitle: TextView = view.movie_title
         val tvYear: TextView = view.textView_year
         val ivPoster: ImageView = view.imageView_thumbnail
 

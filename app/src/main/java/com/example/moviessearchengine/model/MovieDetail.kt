@@ -1,8 +1,6 @@
 package com.example.moviessearchengine.model
 
-
 import com.google.gson.annotations.SerializedName
-
 
 data class MovieDetail(
     @SerializedName("Title")
