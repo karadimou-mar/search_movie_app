@@ -7,8 +7,12 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+/.idea/gradle.xml
+/.idea/dictionaries/mk.xml
+/.idea/codeStyles/Project.xml
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
+.idea
