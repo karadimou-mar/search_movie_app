@@ -13,4 +13,11 @@ The android app lets you:
 - Display details of a selected movie into a new screen
 
 ## Screenshots
-![](/app/screenshots/1.png) ![](/app/screenshots/2.png)
+<div class="images12"> 
+<img src="/app/screenshots/1.png" alt="1" width="350" height="550" hspace="10"/>
+<img src="/app/screenshots/2.png" alt="2" width="350" height="550"/>
+</div>
+<div class="images34">
+<img src="/app/screenshots/3.png" alt="3" width="350" height="550" hspace="10"/>
+<img src="/app/screenshots/4.png" alt="4" width="350" height="550"/>
+</div>
