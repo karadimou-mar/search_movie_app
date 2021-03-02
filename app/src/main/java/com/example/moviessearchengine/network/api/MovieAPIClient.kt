@@ -19,8 +19,16 @@ object MovieAPIClient {
         .build()
         .create(MovieAPI::class.java)
 
+    fun getAllResults(title: String, page: Int): Call<SearchResponse>{
+        return api.getAllResults(title, BuildConfig.API_KEY, page)
+    }
+
     fun getMovies(title: String, page: Int): Call<SearchResponse>{
         return api.getMovies(title, BuildConfig.API_KEY, page)
+    }
+
+    fun getSeries(title: String, page: Int): Call<SearchResponse>{
+        return api.getSeries(title, BuildConfig.API_KEY, page)
     }
 
     fun getMovieDetails(title: String): Call<MovieDetail>{

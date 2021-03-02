@@ -5,7 +5,7 @@
     android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mediumPurple"
+    android:background="@color/white_smoke"
     tools:context=".view.ui.MainActivity">
 
 
@@ -16,9 +16,9 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="15dp"
-        android:importantForAutofill="no"
         android:ems="10"
         android:hint="@string/search"
+        android:importantForAutofill="no"
         android:inputType="text"
         app:layout_constraintEnd_toStartOf="@+id/search_btn"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,10 +30,10 @@
         android:layout_height="@dimen/square_size"
         android:layout_marginEnd="16dp"
         android:background="@color/colorPrimary"
+        android:contentDescription="@string/this_is_a_search_button"
         android:src="@drawable/ic_search"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/search"
-        android:contentDescription="@string/this_is_a_search_button" />
+        app:layout_constraintTop_toTopOf="@+id/search" />
 
     <com.example.moviessearchengine.view.ui.MovieRecyclerView
         android:id="@+id/movie_recyclerview"
@@ -41,29 +41,29 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="92dp"
-        android:background="@color/mediumPurple"
+        android:background="@color/white_smoke"
         android:scrollbars="vertical"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search" />
+        app:layout_constraintTop_toBottomOf="@+id/search"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/imageView_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:contentDescription="@string/this_is_a_search_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search"
-        app:layout_constraintVertical_bias="0.246"
-        app:srcCompat="@drawable/search"
-        android:contentDescription="@string/this_is_a_search_image" />
+        app:srcCompat="@drawable/search" />
 
     <ImageView
         android:id="@+id/imageView_no_result"
         android:layout_width="411dp"
         android:layout_height="507dp"
+        android:contentDescription="@string/this_is_a_no_result_image"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,8 +71,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search"
         app:layout_constraintVertical_bias="0.479"
-        app:srcCompat="@drawable/no_result_trans"
-        android:contentDescription="@string/this_is_a_no_result_image" />
+        app:srcCompat="@drawable/no_result_trans" />
 
     <ProgressBar
         android:id="@+id/progress_bar_main"

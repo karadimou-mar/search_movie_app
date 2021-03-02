@@ -21,4 +21,7 @@
     <string name="this_is_a_no_result_image">This is a no-result image</string>
     <string name="network_error">You are offline. Check your network!</string>
     <string name="this_is_an_movie_poster">This is an movie poster</string>
+    <string name="movies">Movies</string>
+    <string name="series">Series</string>
+    <string name="filter_by">Filter by :</string>
 </resources>

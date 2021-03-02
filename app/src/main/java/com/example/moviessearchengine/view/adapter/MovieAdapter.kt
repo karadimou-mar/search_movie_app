@@ -1,6 +1,6 @@
 package com.example.moviessearchengine.view.adapter
 
-import android.graphics.Color
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ import com.example.moviessearchengine.model.Movie
 import com.example.moviessearchengine.utils.loadImage
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieAdapter(private val itemClickListener: OnItemClickListener) :
+class MovieAdapter(private val itemClickListener: OnItemClickListener, private val context: Context?) :
     PagedListAdapter<Movie, MovieAdapter.ViewHolder>(movieDiff) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -22,7 +22,7 @@ class MovieAdapter(private val itemClickListener: OnItemClickListener) :
         holder.tvTitle.text = movie!!.title
         holder.tvYear.text = movie.year
         holder.ivPoster.loadImage(movie.poster)
-        holder.itemView.setBackgroundColor(Color.WHITE)
+        context?.getColor(R.color.white_smoke)?.let { holder.itemView.setBackgroundColor(it) }
         holder.bind(movie, itemClickListener)
     }
 

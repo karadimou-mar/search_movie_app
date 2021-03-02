@@ -4,8 +4,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -19,7 +18,9 @@ import com.example.moviessearchengine.network.connectivity.ConnectivityReceiver
 import com.example.moviessearchengine.utils.ListDecorationPadding
 import com.example.moviessearchengine.utils.hideKeyboard
 import com.example.moviessearchengine.view.adapter.MovieAdapter
+import com.example.moviessearchengine.viewmodel.MainViewModel
 import com.example.moviessearchengine.viewmodel.MovieViewModel
+import com.example.moviessearchengine.viewmodel.SeriesViewModel
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
     ConnectivityReceiver.ConnectivityReceiverListener {
 
     private var snackBar: Snackbar? = null
+    private lateinit var adapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +43,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
 
         val recyclerView = findViewById<MovieRecyclerView>(R.id.movie_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = MovieAdapter(this)
+        adapter = MovieAdapter(this, applicationContext)
         recyclerView.adapter = adapter
         recyclerView.setNoResultImage(imageView_no_result)
         recyclerView.setProgressBar(progress_bar_main)
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
             imageView_search.visibility = View.GONE
             hideKeyboard()
             checkConnection()
-            getMovies(search.text.toString(), this, adapter)
+            getAllResults(search.text.toString(), this, adapter)
         }
         registerReceiver(
             ConnectivityReceiver(),
@@ -61,10 +63,30 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
         )
     }
 
+    private fun getAllResults(title: String, activity: AppCompatActivity, adapter: MovieAdapter) {
+        activity.viewModelStore.clear()
+        val movieViewModel = ViewModelProviders.of(activity, MyMainViewModelFactory(title))
+            .get<MainViewModel>(MainViewModel::class.java)
+
+        movieViewModel.moviePagedList.observe(activity, Observer { items ->
+            adapter.submitList(items)
+        })
+    }
+
     private fun getMovies(title: String, activity: AppCompatActivity, adapter: MovieAdapter) {
         activity.viewModelStore.clear()
-        val movieViewModel = ViewModelProviders.of(activity, MyViewModelFactory(title))
+        val movieViewModel = ViewModelProviders.of(activity, MyMovieViewModelFactory(title))
             .get<MovieViewModel>(MovieViewModel::class.java)
+
+        movieViewModel.moviePagedList.observe(activity, Observer { items ->
+            adapter.submitList(items)
+        })
+    }
+
+    private fun getSeries(title: String, activity: AppCompatActivity, adapter: MovieAdapter) {
+        activity.viewModelStore.clear()
+        val movieViewModel = ViewModelProviders.of(activity, MySeriesViewModelFactory(title))
+            .get<SeriesViewModel>(SeriesViewModel::class.java)
 
         movieViewModel.moviePagedList.observe(activity, Observer { items ->
             adapter.submitList(items)
@@ -80,10 +102,24 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
         getMovieDetails(movie?.title.toString())
     }
 
-    class MyViewModelFactory(private val mParam: String) :
+    class MyMainViewModelFactory(private val mParam: String) :
+        ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return MainViewModel(mParam) as T
+        }
+    }
+
+    class MyMovieViewModelFactory(private val mParam: String) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return MovieViewModel(mParam) as T
+        }
+    }
+
+    class MySeriesViewModelFactory(private val mParam: String) :
+        ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return SeriesViewModel(mParam) as T
         }
     }
 
@@ -109,6 +145,28 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
         val isConnected = ConnectivityReceiver.isConnectedOrConnecting(this)
         showNetworkMessage(isConnected)
         return isConnected
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.movie_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.movies -> {
+                item.isChecked = !item.isChecked
+                getMovies(search.text.toString(), this, adapter)
+                true
+            }
+            R.id.series -> {
+                item.isChecked = !item.isChecked
+                getSeries(search.text.toString(), this, adapter)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
 

@@ -12,7 +12,7 @@ import retrofit2.Response
 
 //TODO: check loadBefore()
 
-class MovieDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
+class MainDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
 
     private val m = movie
 
@@ -24,15 +24,12 @@ class MovieDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Movie>
     ) {
-        val call: Call<SearchResponse> = MovieAPIClient.getMovies(
-            m,
-            PAGE
-        )
+        val call: Call<SearchResponse> = MovieAPIClient.getAllResults(m, PAGE)
 
         call.enqueue(object : Callback<SearchResponse> {
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 t.printStackTrace()
-                logE("getMovies FAILED", t)
+                logE("getAll: FAILED", t)
             }
 
             override fun onResponse(
@@ -45,18 +42,18 @@ class MovieDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
                 if (resp?.search != null) {
                     callback.onResult(resp.search as MutableList<Movie>, null, PAGE + 1)
                 } else {
-                    logD("Mo result found!")
+                    logD("No result found!")
                 }
             }
         })
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
-        val call: Call<SearchResponse> = MovieAPIClient.getMovies(m, params.key)
+        val call: Call<SearchResponse> = MovieAPIClient.getAllResults(m, params.key)
         call.enqueue(object : Callback<SearchResponse> {
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 t.printStackTrace()
-                logE("getMovies FAILED", t)
+                logE("getAll: FAILED", t)
             }
 
             override fun onResponse(
@@ -69,18 +66,18 @@ class MovieDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
                 if (resp?.search != null) {
                     callback.onResult(resp.search as MutableList<Movie>, key)
                 } else {
-                    logD("loadAfter: No result found!")
+                    logD("getAll: loadAfter: No result found!")
                 }
             }
         })
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
-        val call: Call<SearchResponse> = MovieAPIClient.getMovies(m, params.key)
+        val call: Call<SearchResponse> = MovieAPIClient.getAllResults(m, params.key)
         call.enqueue(object : Callback<SearchResponse> {
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 t.printStackTrace()
-                logE("loadBefore: FAILED api connection", t)
+                logE("getAll: loadBefore: FAILED api connection", t)
             }
 
             override fun onResponse(
