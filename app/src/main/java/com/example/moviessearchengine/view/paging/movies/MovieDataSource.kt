@@ -38,7 +38,6 @@ class MovieDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
             ) {
 
                 val resp: SearchResponse? = response.body()
-//                val search: List<Movie>? = resp?.search
                 if (resp?.search != null) {
                     callback.onResult(resp.search as MutableList<Movie>, null, PAGE + 1)
                 } else {
@@ -61,7 +60,6 @@ class MovieDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
                 response: Response<SearchResponse>
             ) {
                 val resp: SearchResponse? = response.body()
-//                val search: List<Movie>? = resp?.search
                 val key = if (response.body() != null) params.key + 1 else null
                 if (resp?.search != null) {
                     callback.onResult(resp.search as MutableList<Movie>, key)

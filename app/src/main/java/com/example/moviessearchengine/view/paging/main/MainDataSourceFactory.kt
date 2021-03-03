@@ -1,18 +1,17 @@
-package com.example.moviessearchengine.view.paging.series
+package com.example.moviessearchengine.view.paging.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import com.example.moviessearchengine.model.Movie
 
-class SeriesDataSourceFactory(movie: String) : DataSource.Factory<Int, Movie>() {
+class MainDataSourceFactory(private val movie: String) : DataSource.Factory<Int, Movie>() {
 
-    private val m = movie
     val itemLiveDataSource = MutableLiveData<PageKeyedDataSource<Int, Movie>>()
 
     override fun create(): DataSource<Int, Movie> {
         val itemDataSource =
-            SeriesDataSource(m)
+            MainDataSource(movie)
         itemLiveDataSource.postValue(itemDataSource)
         return itemDataSource
     }

@@ -9,4 +9,18 @@
                         android:title="@string/series" />
             </menu>
         </item>
+
+    <item android:title="@string/show_only">
+        <menu>
+            <item
+                android:id="@+id/first20"
+                android:title="@string/_20" />
+            <item
+                android:id="@+id/first50"
+                android:title="@string/_50" />
+            <item
+                android:id="@+id/all"
+                android:title="@string/all" />
+        </menu>
+    </item>
 </menu>

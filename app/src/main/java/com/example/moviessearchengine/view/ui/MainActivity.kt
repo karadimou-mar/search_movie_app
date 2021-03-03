@@ -1,12 +1,9 @@
 package com.example.moviessearchengine.view.ui
 
 import android.content.Intent
-import android.content.IntentFilter
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -16,18 +13,13 @@ import com.example.moviessearchengine.R
 import com.example.moviessearchengine.model.Movie
 import com.example.moviessearchengine.network.api.MovieAPIClient.getMovieDetails
 import com.example.moviessearchengine.network.connectivity.ConnectivityReceiver
-import com.example.moviessearchengine.utils.ListDecorationPadding
-import com.example.moviessearchengine.utils.hideKeyboard
-import com.example.moviessearchengine.utils.visibleElseGone
+import com.example.moviessearchengine.utils.*
 import com.example.moviessearchengine.view.adapter.MovieAdapter
-import com.example.moviessearchengine.viewmodel.MainViewModel
-import com.example.moviessearchengine.viewmodel.MovieViewModel
-import com.example.moviessearchengine.viewmodel.SeriesViewModel
+import com.example.moviessearchengine.viewmodel.*
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.searchImage
-import kotlinx.android.synthetic.main.activity_main.view.*
 
 //TODO: synthetic kotlin change
 //TODO: onfailure
@@ -61,16 +53,32 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
             checkConnection()
             getAllResults(searchEditText.text.toString(), this, adapter)
         }
-        registerReceiver(
-            ConnectivityReceiver(),
-            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-        )
     }
 
     private fun getAllResults(title: String, activity: AppCompatActivity, adapter: MovieAdapter) {
         activity.viewModelStore.clear()
         val movieViewModel = ViewModelProviders.of(activity, MyMainViewModelFactory(title))
             .get<MainViewModel>(MainViewModel::class.java)
+
+        movieViewModel.moviePagedList.observe(activity, Observer { items ->
+            adapter.submitList(items)
+        })
+    }
+
+    private fun getAll20Results(title: String, activity: AppCompatActivity, adapter: MovieAdapter) {
+        activity.viewModelStore.clear()
+        val movieViewModel = ViewModelProviders.of(activity, MyMain20ViewModelFactory(title))
+            .get<Main20ViewModel>(Main20ViewModel::class.java)
+
+        movieViewModel.moviePagedList.observe(activity, Observer { items ->
+            adapter.submitList(items)
+        })
+    }
+
+    private fun getAll50Results(title: String, activity: AppCompatActivity, adapter: MovieAdapter) {
+        activity.viewModelStore.clear()
+        val movieViewModel = ViewModelProviders.of(activity, MyMain50ViewModelFactory(title))
+            .get<Main50ViewModel>(Main50ViewModel::class.java)
 
         movieViewModel.moviePagedList.observe(activity, Observer { items ->
             adapter.submitList(items)
@@ -110,6 +118,20 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
         ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return MainViewModel(mParam) as T
+        }
+    }
+
+    class MyMain20ViewModelFactory(private val mParam: String) :
+        ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return Main20ViewModel(mParam) as T
+        }
+    }
+
+    class MyMain50ViewModelFactory(private val mParam: String) :
+        ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return Main50ViewModel(mParam) as T
         }
     }
 
@@ -160,15 +182,28 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.movies -> {
-                item.isChecked = !item.isChecked
-                searchImage.visibleElseGone { !searchImage.isVisible }
+                searchImage.visibility = View.GONE
                 getMovies(searchEditText.text.toString(), this, adapter)
                 true
             }
             R.id.series -> {
-                item.isChecked = !item.isChecked
-                searchImage.visibleElseGone { !searchImage.isVisible }
+                searchImage.visibility = View.GONE
                 getSeries(searchEditText.text.toString(), this, adapter)
+                true
+            }
+            R.id.first20 -> {
+                searchImage.visibility = View.GONE
+                getAll20Results(searchEditText.text.toString(), this, adapter)
+                true
+            }
+            R.id.first50 -> {
+                searchImage.visibility = View.GONE
+                getAll50Results(searchEditText.text.toString(), this, adapter)
+                true
+            }
+            R.id.all -> {
+                searchImage.visibility = View.GONE
+                getAllResults(searchEditText.text.toString(), this, adapter)
                 true
             }
             else -> super.onOptionsItemSelected(item)

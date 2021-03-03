@@ -19,4 +19,8 @@
     <string name="movies">Movies</string>
     <string name="series">Series</string>
     <string name="filter_by">Filter by :</string>
+    <string name="show_only">Show :</string>
+    <string name="_20">20</string>
+    <string name="_50">50</string>
+    <string name="all">all</string>
 </resources>

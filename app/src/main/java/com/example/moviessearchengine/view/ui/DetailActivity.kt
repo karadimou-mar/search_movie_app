@@ -9,7 +9,6 @@ import com.example.moviessearchengine.utils.loadPoster
 import com.example.moviessearchengine.utils.logD
 import com.example.moviessearchengine.utils.logE
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.item_movie.nameDetails
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +25,7 @@ class DetailActivity : AppCompatActivity() {
         getIntentExtras()
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        getMovieDetails(nameDetails.text.toString())
+        getMovieDetails(movieDetails.text.toString())
     }
 
     private fun getIntentExtras() {
@@ -37,7 +36,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setIntentExtras(title: String?, poster: String?) {
-        nameDetails.text = title
+        movieDetails.text = title
         imageView_poster.loadPoster(poster)
     }
 

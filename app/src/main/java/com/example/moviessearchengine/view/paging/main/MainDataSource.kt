@@ -1,4 +1,4 @@
-package com.example.moviessearchengine.view.paging
+package com.example.moviessearchengine.view.paging.main
 
 import androidx.paging.PageKeyedDataSource
 import com.example.moviessearchengine.model.Movie
@@ -12,9 +12,7 @@ import retrofit2.Response
 
 //TODO: check loadBefore()
 
-class MainDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
-
-    private val m = movie
+class MainDataSource(private val movie: String) : PageKeyedDataSource<Int, Movie>() {
 
     companion object {
         const val PAGE = 1
@@ -24,7 +22,7 @@ class MainDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Movie>
     ) {
-        val call: Call<SearchResponse> = MovieAPIClient.getAllResults(m, PAGE)
+        val call: Call<SearchResponse> = MovieAPIClient.getAllResults(movie, PAGE)
 
         call.enqueue(object : Callback<SearchResponse> {
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
@@ -38,7 +36,6 @@ class MainDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
             ) {
 
                 val resp: SearchResponse? = response.body()
-//                val search: List<Movie>? = resp?.search
                 if (resp?.search != null) {
                     callback.onResult(resp.search as MutableList<Movie>, null, PAGE + 1)
                 } else {
@@ -49,7 +46,7 @@ class MainDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
-        val call: Call<SearchResponse> = MovieAPIClient.getAllResults(m, params.key)
+        val call: Call<SearchResponse> = MovieAPIClient.getAllResults(movie, params.key)
         call.enqueue(object : Callback<SearchResponse> {
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 t.printStackTrace()
@@ -61,7 +58,6 @@ class MainDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
                 response: Response<SearchResponse>
             ) {
                 val resp: SearchResponse? = response.body()
-//                val search: List<Movie>? = resp?.search
                 val key = if (response.body() != null) params.key + 1 else null
                 if (resp?.search != null) {
                     callback.onResult(resp.search as MutableList<Movie>, key)
@@ -73,7 +69,7 @@ class MainDataSource(movie: String) : PageKeyedDataSource<Int, Movie>() {
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
-        val call: Call<SearchResponse> = MovieAPIClient.getAllResults(m, params.key)
+        val call: Call<SearchResponse> = MovieAPIClient.getAllResults(movie, params.key)
         call.enqueue(object : Callback<SearchResponse> {
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 t.printStackTrace()
