@@ -28,6 +28,6 @@ class SplashActivity : AppCompatActivity() {
         }, 3000)
 
         val anim: Animation = AnimationUtils.loadAnimation(this, R.anim.splash_animation)
-        iv_splash.startAnimation(anim)
+        splash.startAnimation(anim)
     }
 }

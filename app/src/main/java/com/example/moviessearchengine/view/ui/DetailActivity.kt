@@ -9,7 +9,7 @@ import com.example.moviessearchengine.utils.loadPoster
 import com.example.moviessearchengine.utils.logD
 import com.example.moviessearchengine.utils.logE
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.item_movie.movie_title
+import kotlinx.android.synthetic.main.item_movie.nameDetails
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +26,7 @@ class DetailActivity : AppCompatActivity() {
         getIntentExtras()
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        getMovieDetails(movie_title.text.toString())
+        getMovieDetails(nameDetails.text.toString())
     }
 
     private fun getIntentExtras() {
@@ -37,7 +37,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setIntentExtras(title: String?, poster: String?) {
-        movie_title.text = title
+        nameDetails.text = title
         imageView_poster.loadPoster(poster)
     }
 
@@ -57,21 +57,21 @@ class DetailActivity : AppCompatActivity() {
                 writer.text = resp?.writer
                 starring.text = resp?.actor
                 //use resource strings with placeholders
-                movie_details.text = getString(
+                details.text = getString(
                     R.string.movie_details_slash_value,
                     resp?.rated,
                     resp?.runtime,
                     resp?.genre,
                     resp?.released
                 )
-                imdb_rating.text = resp?.imdbRating
+                imdbRating.text = resp?.imdbRating
                 for (i in 0 until resp?.rating!!.size) {
                     if (resp.rating[i].source.isNullOrEmpty())
-                        rotten_tomatoes_rating.text = getString(R.string.dummy_rating)
+                        rtRating.text = getString(R.string.dummy_rating)
                      else
-                        rotten_tomatoes_rating.text = resp.rating[i].value
+                        rtRating.text = resp.rating[i].value
                 }
-                metacritic_rating.text = resp.metascore
+                metaRating.text = resp.metascore
             }
         })
     }

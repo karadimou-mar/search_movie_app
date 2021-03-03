@@ -16,10 +16,7 @@ class ListDecorationPadding(
     private var mDivider: Drawable? = null
 
     init {
-        mDivider = ContextCompat.getDrawable(
-            context,
-            R.drawable.divider
-        )
+        mDivider = ContextCompat.getDrawable(context, R.drawable.divider)
     }
 
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {

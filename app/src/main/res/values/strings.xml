@@ -15,12 +15,7 @@
     <string name="dummy_actor">N/A</string>
     <string name="dummy_rating">N/A</string>
     <string name="movie_details_slash_value">%1$s | %2$s | %3$s | %4$s</string>
-    <string name="this_is_a_splash_screen_image">This is a splash screen image</string>
-    <string name="this_is_a_search_button">This is a search button</string>
-    <string name="this_is_a_search_image">This is a search image</string>
-    <string name="this_is_a_no_result_image">This is a no-result image</string>
     <string name="network_error">You are offline. Check your network!</string>
-    <string name="this_is_an_movie_poster">This is an movie poster</string>
     <string name="movies">Movies</string>
     <string name="series">Series</string>
     <string name="filter_by">Filter by :</string>

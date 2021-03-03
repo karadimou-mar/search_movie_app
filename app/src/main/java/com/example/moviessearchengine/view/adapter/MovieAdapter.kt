@@ -37,9 +37,9 @@ class MovieAdapter(private val itemClickListener: OnItemClickListener, private v
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvTitle: TextView = view.movie_title
-        val tvYear: TextView = view.textView_year
-        val ivPoster: ImageView = view.imageView_thumbnail
+        val tvTitle: TextView = view.nameDetails
+        val tvYear: TextView = view.releaseYear
+        val ivPoster: ImageView = view.thumbnail
 
         fun bind(movie: Movie?, clickListener: OnItemClickListener) {
             itemView.setOnClickListener {

@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,7 @@ import com.example.moviessearchengine.network.api.MovieAPIClient.getMovieDetails
 import com.example.moviessearchengine.network.connectivity.ConnectivityReceiver
 import com.example.moviessearchengine.utils.ListDecorationPadding
 import com.example.moviessearchengine.utils.hideKeyboard
+import com.example.moviessearchengine.utils.visibleElseGone
 import com.example.moviessearchengine.view.adapter.MovieAdapter
 import com.example.moviessearchengine.viewmodel.MainViewModel
 import com.example.moviessearchengine.viewmodel.MovieViewModel
@@ -24,6 +26,8 @@ import com.example.moviessearchengine.viewmodel.SeriesViewModel
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.searchImage
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 //TODO: synthetic kotlin change
 //TODO: onfailure
@@ -41,21 +45,21 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
         hideKeyboard()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
-        val recyclerView = findViewById<MovieRecyclerView>(R.id.movie_recyclerview)
+        val recyclerView = findViewById<MovieRecyclerView>(R.id.resultsList)
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = MovieAdapter(this, applicationContext)
         recyclerView.adapter = adapter
         recyclerView.setNoResultImage(imageView_no_result)
-        recyclerView.setProgressBar(progress_bar_main)
+        recyclerView.setProgressBar(progressBar)
         recyclerView.addItemDecoration(
             ListDecorationPadding(this, 0, 0)
         )
 
-        search_btn.setOnClickListener {
-            imageView_search.visibility = View.GONE
+        search.setOnClickListener {
+            searchImage.visibility = View.GONE
             hideKeyboard()
             checkConnection()
-            getAllResults(search.text.toString(), this, adapter)
+            getAllResults(searchEditText.text.toString(), this, adapter)
         }
         registerReceiver(
             ConnectivityReceiver(),
@@ -157,12 +161,14 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener,
         return when (item.itemId) {
             R.id.movies -> {
                 item.isChecked = !item.isChecked
-                getMovies(search.text.toString(), this, adapter)
+                searchImage.visibleElseGone { !searchImage.isVisible }
+                getMovies(searchEditText.text.toString(), this, adapter)
                 true
             }
             R.id.series -> {
                 item.isChecked = !item.isChecked
-                getSeries(search.text.toString(), this, adapter)
+                searchImage.visibleElseGone { !searchImage.isVisible }
+                getSeries(searchEditText.text.toString(), this, adapter)
                 true
             }
             else -> super.onOptionsItemSelected(item)
